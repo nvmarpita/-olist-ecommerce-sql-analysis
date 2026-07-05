@@ -13,7 +13,7 @@ https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 - MySQL WORKBENCH
 
 
-
+##    Entity Relationship Diagram (ERD)
 <img width="1380" height="1160" alt="schema" src="https://github.com/user-attachments/assets/05c379b9-b357-4fcc-a31b-4423572815a4" />
                                                 
 
