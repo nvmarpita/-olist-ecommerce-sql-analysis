@@ -1,14 +1,15 @@
 # From Orders to Insights: SQL Analysis of 100K+ Olist Transactions
 
  
-## Project Overview
+## Project Overview:
 The Brazilian E-commerce (Olist) dataset is a real-world transactional dataset published by Olist, one of Brazil’s largest online marketplaces. It contains over 100,000 orders from 2016–2018 across nine interconnected tables, including customers, orders, products, sellers, payments, reviews, and geolocation. This project uses the dataset to perform business analysis using advanced SQL techniques including window functions, CTEs, and conditional aggregation, and data analysis on a real-world    
 e-commerce dataset.
-## Dataset Source-
+
+## Dataset Source:
 https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 
 
-## Tools Used
+## Tools Used:
 
 - MySQL
 - MySQL Workbench
@@ -18,7 +19,7 @@ https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 <img width="1380" height="1160" alt="schema" src="https://github.com/user-attachments/assets/05c379b9-b357-4fcc-a31b-4423572815a4" />
                                                 
 
-## Business Questions(CATEGORISED BY THEMES)-
+## Business Questions(CATEGORISED BY THEMES):
 ### Sales Performance
 - Q1. What is the total revenue per month, and how does it trend over time?
 - Q2. Which product categories generate the highest revenue?
@@ -33,8 +34,8 @@ https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 - Q9. For each month, what percentage of orders were delivered late, and how does that late delivery rate trend over time?
 - Q10. For each product category, identify whether it is Rising, Declining, or Stable — based on comparing first half vs second half revenue performance.
 
-## Key Findings-
-**Revenue peaked during Brazil's Black Friday season**
+## Key Findings:
+**-Revenue peaked during Brazil's Black Friday season**
 Revenue grew consistently throughout 2017, peaking in November 2017 reaching R$1,153,528. 
 This peak likely reflects Brazil's Black Friday shopping season, which drives a significant 
 surge in consumer spending across e-commerce platforms.
@@ -49,8 +50,8 @@ suggesting strong platform-wide revenue growth during this period.
 
 **-Higher-value orders correlate with more payment installments** Orders with more installments tend to have higher average values — single-installment orders averaged R$ 112 while 10-installment orders averaged R$415.
 
-## SQL Techniques Used-
-- Advanced CTes
+## SQL Techniques Used:
+- Advanced CTEs
 - Complex Joins
 - Window functions(LAG(),DENSE_RANK())
 - String/date manipulation for time-series grouping
