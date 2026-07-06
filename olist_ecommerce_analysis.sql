@@ -9,7 +9,7 @@ FROM
         JOIN
     order_payments op ON od.order_id = op.order_id
 WHERE
-    od.order_status = 'delivered'
+    od.order_status = "delivered"
 GROUP BY months
 ORDER BY months ASC;
 -- Conclusions:---- Trend: Revenue grew steadily throughout 2017, peaking in Nov 2017,
@@ -34,17 +34,17 @@ JOIN products_dataset pd ON r.product_id = pd.product_id
 JOIN product_category_name_translation pct 
     ON pd.product_category_name = pct.product_category_name
 GROUP BY pct.product_category_name_english
-ORDER BY highest_revenue DESC
+ORDER BY total_revenue DESC
 LIMIT 10;
 -- Q3- What is the month-over-month revenue growth rate?
 WITH cte AS(
 SELECT
-substring(order_purchase_timestamp,1,7) AS MONTHS,
+SUBSTRING(order_purchase_timestamp,1,7) AS MONTHS,
 ROUND(SUM(ot.price),0)AS sales
 FROM  orders_dataset od
 JOIN order_items ot
 ON od.order_id = ot.order_id
-WHERE od.order_status = 'delivered'
+WHERE od.order_status = "delivered"
 GROUP BY  MONTHS)
 SELECT
  MONTHS,
@@ -165,7 +165,7 @@ ELSE
 END)/COUNT(*)*100,2) AS late_delivery_pct 
 FROM cte
 GROUP BY MONTHS
-ORDER BY late_delivery_pct DESC)
+)
 SELECT
     MONTHS,
     late_delivery_pct,
@@ -194,7 +194,7 @@ THEN op.payment_value ELSE 0 END) AS second_half
  FROM order_payments op
  JOIN orders_dataset od ON op.order_id = od.order_id
 JOIN order_items ot ON od.order_id = ot.order_id
- WHERE od.order_status = 'delivered'
+ WHERE od.order_status = "delivered"
 GROUP BY ot.product_id
 ),
 category_revenue AS (
