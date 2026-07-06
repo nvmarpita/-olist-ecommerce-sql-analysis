@@ -40,15 +40,79 @@ Revenue grew consistently throughout 2017, peaking in November 2017 reaching R$1
 This peak likely reflects Brazil's Black Friday shopping season, which drives a significant 
 surge in consumer spending across e-commerce platforms.
 
+ |revenue	|months |
+ |------  |---|
+ |46567	 | 2016-10 |
+  |20 | 2016-12|
+|127546	 | 2017-01|
+|271299 | 2017-02|
+|414369 | 2017-03|
+|390952	| 2017-04|
+|567067	| 2017-05|
+|490226 |	2017-06|
+|566404|	2017-07|
+|646001 |	2017-08|
+|701170	|2017-09|
+|751140	|2017-10|
+|1153528	| 2017-11|
+|843199 | 	2017-12|
+|1078607| 	2018-01|
+|966511	| 2018-02|
+|1120678	| 2018-03|
+|1132934	| 2018-04|
+|1128837	| 2018-05|
+|1012091	| 2018-06|
+|1027904 | 2018-07|
+|985414	|2018-08|
+
+**Note:** 2016-10 and 2016-12 show unusually low revenue (R$46,567 and R$20) likely reflecting Olist's early platform launch period with minimal seller/order activity. Growth trends are more representative from 2017 onward.
+
  **-Retention rate in Olist e-commerce is critically low**
 In Olist e-commerce, one-time customers account for 96.88% of all buyers, while repeat customers make up only 3.12%.
 
+|customer_type| customer_count|percentage|
+ |------     |   ----------  |---|
+|one-time	    |   93099	      |96.88|
+|repeat       |	2997	         |3.12|
+
+
+
  **-Olist experienced near-universal category growth during 2016–2018**
 69 out of 71 product categories showed Rising revenue in the second half of 2016-2018, 
-with bed_bath_table leading among Rising categories. Only 1 category Declined and 1 remained Stable ,
-suggesting strong platform-wide revenue growth during this period.
+with bed_bath_table leading among Rising categories. Only 1 category Declined and 1 remained Stable ,suggesting strong platform-wide revenue growth during this period.
+
+|product_category_name_english |first_half| second_half| revenue_change| classification|rank_within_class|
+|------------------------------|----------|------------|---------------|---------------|-----------------|
+|security_and_services| 209| 115| -94| Declining| 1|
+|bed_bath_table| 156080| 1536634| 1380554| Rising| 1|
+|health_beauty| 165555| 1455129| 1289574| Rising| 2|
+|computers_accessories| 167489| 1381883| 1214394| Rising| 3|
+tablets_printing_image|	5214|	4829|	-385	|Stable	|1|
 
 **-Higher-value orders correlate with more payment installments** Orders with more installments tend to have higher average values — single-installment orders averaged R$ 112 while 10-installment orders averaged R$415.
+
+|payment_installments| avg_order_value|
+|--------------------|---------------|
+|24	|610.05|
+|23|	236.48|
+|22	|228.71|
+|21	|243.7|
+|20	|615.8|
+|18	|486.48|
+
+## Data Schema
+
+| Table | Why I used it |
+|-------|---------------|
+| customers | To find unique and repeat customers |
+| orders_dataset | To get order status and delivery timestamps |
+| order_items | To get product price and freight per order |
+| order_payments | To get payment type and installment count |
+| order_reviews | To get customer review scores |
+| products_dataset | To get product category and size/weight |
+| product_category_name_translation | To translate category names to English |
+| sellers_dataset | To get seller delivery performance |
+
 
 ## SQL Techniques Used:
 - Advanced CTEs
