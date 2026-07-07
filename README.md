@@ -1,13 +1,10 @@
 # From Orders to Insights: SQL Analysis of 100K+ Olist Transactions
-
  
 ## Project Overview:
-The Brazilian E-commerce (Olist) dataset is a real-world transactional dataset published by Olist, one of Brazil’s largest online marketplaces. It contains over 100,000 orders from 2016–2018 across nine interconnected tables, including customers, orders, products, sellers, payments, reviews, and geolocation. This project uses the dataset to perform business analysis using advanced SQL techniques including window functions, CTEs, and conditional aggregation, and data analysis on a real-world    
-e-commerce dataset.
+The Brazilian E-commerce (Olist) dataset is a real-world transactional dataset published by Olist, one of Brazil's largest online marketplaces. It contains over 100,000 orders from 2016–2018 across nine interconnected tables, including customers, orders, products, sellers, payments, reviews, and geolocation. This project uses the dataset to perform business analysis using advanced SQL techniques including window functions, CTEs, and conditional aggregation.
 
 ## Dataset Source:
 https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
-
 
 ## Tools Used:
 
@@ -35,7 +32,7 @@ https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 - Q10. For each product category, identify whether it is Rising, Declining, or Stable — based on comparing first half vs second half revenue performance.
 
 ## Key Findings:
-**-Revenue peaked during Brazil's Black Friday season**
+**Revenue peaked during Brazil's Black Friday season**
 Revenue grew consistently throughout 2017, peaking in November 2017 reaching R$1,153,528. 
 This peak likely reflects Brazil's Black Friday shopping season, which drives a significant 
 surge in consumer spending across e-commerce platforms.
@@ -67,7 +64,7 @@ surge in consumer spending across e-commerce platforms.
 
 **Note:** 2016-10 and 2016-12 show unusually low revenue (R$46,567 and R$20) likely reflecting Olist's early platform launch period with minimal seller/order activity. Growth trends are more representative from 2017 onward.
 
- **-Retention rate in Olist e-commerce is critically low**
+ **Retention rate in Olist e-commerce is critically low**
 In Olist e-commerce, one-time customers account for 96.88% of all buyers, while repeat customers make up only 3.12%.
 
 |customer_type| customer_count|percentage|
@@ -76,8 +73,7 @@ In Olist e-commerce, one-time customers account for 96.88% of all buyers, while 
 |repeat       |	2997	         |3.12|
 
 
-
- **-Olist experienced near-universal category growth during 2016–2018**
+ **Olist experienced near-universal category growth during 2016–2018**
 69 out of 71 product categories showed Rising revenue in the second half of 2016-2018, 
 with bed_bath_table leading among Rising categories. Only 1 category Declined and 1 remained Stable ,suggesting strong platform-wide revenue growth during this period.
 
@@ -87,18 +83,25 @@ with bed_bath_table leading among Rising categories. Only 1 category Declined an
 |bed_bath_table| 156080| 1536634| 1380554| Rising| 1|
 |health_beauty| 165555| 1455129| 1289574| Rising| 2|
 |computers_accessories| 167489| 1381883| 1214394| Rising| 3|
-tablets_printing_image|	5214|	4829|	-385	|Stable	|1|
+|tablets_printing_image|	5214|	4829| -38  |Stable |1|
 
-**-Higher-value orders correlate with more payment installments** Orders with more installments tend to have higher average values — single-installment orders averaged R$ 112 while 10-installment orders averaged R$415.
+Classification is based on percentage change between periods (±10% threshold), not absolute revenue difference — this is why a category like tablets_printing_image can show a negative revenue_change and still be labeled Stable.
+
+**Higher-value orders correlate with more payment installments** Orders with more installments tend to have higher average values — single-installment orders averaged R$ 112 while 10-installment orders averaged R$415.
 
 |payment_installments| avg_order_value|
 |--------------------|---------------|
-|24	|610.05|
-|23|	236.48|
-|22	|228.71|
-|21	|243.7|
-|20	|615.8|
-|18	|486.48|
+|1	|112.42|
+|2	|127.23|
+|3	|142.54|
+|4	|163.98|
+|5	|183.47|
+|6	|209.85|
+|7	|187.67|
+|8	|307.74|
+|9	|203.44|
+|10	|415.09|
+
 
 ## Data Schema
 
@@ -122,6 +125,54 @@ tablets_printing_image|	5214|	4829|	-385	|Stable	|1|
 - CASE WHEN statements
 - Aggregate & statistical functions(STDDEV())
 - Date functions (DATEDIFF(), SUBSTRING() for timestamp extraction)
+
+
+## How to Run
+
+1. Download the dataset from Kaggle: [Brazilian E-Commerce Public Dataset by Olist]
+2. Import into MySQL (version 9.6.0) using `mysqlimport` or MySQL Workbench's import wizard
+3. Tables will need to be named: orders_dataset, order_items, order_payments, etc. (match names used in the SQL file, or rename tables after import)
+4. Run `olist_ecommerce_analysis.sql` in MySQL Workbench against the imported schema
+
+## Repository Structure
+
+├── README.md                          — project overview, key findings, and setup steps
+└── olist_ecommerce_analysis.sql       — all 10 SQL queries
+
+### Recommendations  
+
+**1. Improve customer retention through targeted incentives.**
+Only 3.12% of Olist customers are repeat buyers, while 96.88% purchase only once. 
+To address this, Olist could offer a coupon after a customer's first purchase, 
+valid only for their second purchase within a limited expiry window. This targets 
+the one time buyer segment specifically, rather than discounting all customers, 
+making the incentive more cost-effective while directly addressing the retention gap.
+
+**2. Prepare for seasonal demand spikes around Black Friday.**
+Revenue peaked sharply in November 2017, coinciding with Black Friday. To capitalize on this seasonal surge, Olist could:
+- Increase inventory levels ahead of the event to avoid stockouts
+- Scale up delivery/logistics capacity to handle higher order volume
+- Stress-test the platform in advance to prevent crashes under increased traffic
+- Notify sellers early so they can prepare stock accordingly
+
+**3. Keep installment options available, especially for higher-priced products.**
+Orders with more payment installments tend to have higher average order values 
+(R$112 for single-installment orders vs. R$415 for 10-installment orders). Sellers 
+and Olist should ensure installment options remain available across the platform, 
+particularly for higher-priced products, so customers aren't discouraged by the 
+pressure of paying the full amount at once.
+
+**4. Investigate the declining category and reinforce top-performing ones.**
+69 of 71 product categories showed rising revenue between 2016 and 2018, with 
+`bed_bath_table` as the strongest performer. Only `security_and_services` declined. 
+Olist should investigate the cause of this decline — whether pricing, demand, or 
+seller availability is the issue — and consider directing more marketing or 
+seller support toward categories already showing strong growth, like bed_bath_table.
+
+
+
+
+
 
 
 
